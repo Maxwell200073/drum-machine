@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import banks from "./data";
+import Controls from "./Controls";
+import Drumpads from "./Drumpads";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <header>
+                <h1>Drum Machine</h1>
+            </header>
+            <div id="drum-machine" className="container">
+                <input
+                    type="text"
+                    tabIndex={0}
+                    id="text"
+                    autocomplete="off"
+                    onKeyPress={(e) => {
+                        document
+                            .getElementById(`${e.key}`)
+                            .parentElement.click();
+                    }}
+                    autoFocus
+                />
+                <div className="pads">
+                    {banks.map((pad) => {
+                        return <Drumpads key={pad.id} {...pad} />;
+                    })}
+                </div>
+                <Controls />
+            </div>
+        </>
+    );
 }
 
 export default App;
